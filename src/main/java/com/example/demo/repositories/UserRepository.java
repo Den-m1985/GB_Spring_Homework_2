@@ -35,6 +35,10 @@ public class UserRepository {
         return  user;
     }
 
-    //public void deleteById(int id)
-    //"DELETE FROM userTable WHERE id=?"
+    public void deleteById(int id) {
+        String sql = "DELETE FROM userTable WHERE id=?";
+        String idStr = String.valueOf(id);
+        jdbc.update(sql, idStr);
+    }
+
 }
