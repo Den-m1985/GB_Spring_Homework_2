@@ -25,8 +25,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // homework:
     public void deleteById(int id) {
         userRepository.deleteById(id);
+    }
+
+    // homework:
+    public User getOne(int id) {
+        return userRepository.getOne(id);
+    }
+
+    // homework:
+    public User update(User user) {
+        return userRepository.update(user);
     }
 
 }
