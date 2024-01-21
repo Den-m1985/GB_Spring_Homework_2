@@ -2,20 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public List<User> findAll() {
         return userRepository.findAll();

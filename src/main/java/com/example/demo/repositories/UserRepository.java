@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import com.example.demo.model.User;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,12 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class UserRepository {
     private final JdbcTemplate jdbc;
-
-    public UserRepository(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
-    }
 
     public List<User> findAll() {
         String sql = "SELECT * FROM userTable";
@@ -29,7 +27,7 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable VALUES (NULL, ?, ?)";
+        String sql = "INSERT INTO userTable (firstName, lastName) VALUES (?, ?)";
         jdbc.update(sql, user.getFirstName(), user.getLastName());
         return user;
     }
