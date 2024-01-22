@@ -2,6 +2,7 @@ package com.example.demo.repositories;
 
 import com.example.demo.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,9 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class UserRepository {
     private final JdbcTemplate jdbc;
+    private final DataBaseProperties databaseProperties;
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM userTable";
+        String sql = databaseProperties.getFindAll();
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
             rowObject.setId(r.getInt("id"));
@@ -27,26 +29,23 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable (firstName, lastName) VALUES (?, ?)";
+        String sql = databaseProperties.getSave();
         jdbc.update(sql, user.getFirstName(), user.getLastName());
         return user;
     }
 
-    // homework:
     public void deleteById(int id) {
-        String sql = "DELETE FROM userTable WHERE id=?";
+        String sql = databaseProperties.getDeleteById();
         jdbc.update(sql, String.valueOf(id));
     }
 
-    // homework:
     public User getOne(int id) {
-        String sql = "SELECT * FROM userTable WHERE id = ?";
+        String sql = databaseProperties.getGetOne();
         return jdbc.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(User.class));
     }
 
-    // homework:
     public User update(User user) {
-        String sql = "UPDATE userTable SET firstName = ?, lastName = ? WHERE id = ?";
+        String sql = databaseProperties.getUpdate();
         jdbc.update(sql, user.getFirstName(), user.getLastName(), user.getId());
         return user;
     }
