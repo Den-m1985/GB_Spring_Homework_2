@@ -1,6 +1,6 @@
-FROM eclipse-temurin
+#FROM eclipse-temurin
 #FROM eclipse-temurin:17-jre-alpine
+FROM openjdk:17-jdk-slim
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
-#EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
