@@ -22,3 +22,9 @@ sudo docker system prune -af  очищаем диск от остановлен�
 
 sudo docker volume ls  смотрим локальное хранилище
 sudo docker volume rm $(sudo docker volume ls -qf dangling=true)  удаляем все
+
+
+чтобы запустить Dockerfile необходимо:
+    docker build -t my-java-app .
+    docker run -p 8080:8080 my-java-app
+
