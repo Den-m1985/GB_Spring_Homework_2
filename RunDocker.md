@@ -24,7 +24,26 @@ sudo docker volume ls  смотрим локальное хранилище
 sudo docker volume rm $(sudo docker volume ls -qf dangling=true)  удаляем все
 
 
+Deploy на сервер:
 чтобы запустить Dockerfile необходимо:
     docker build -t my-java-app .
     docker run -p 8080:8080 my-java-app
+Проверяем работоспособность
+Останавливаем
 
+Сохраняем контейнер в файл (домашняя директория)
+sudo docker save -o image.tar my-java-app
+
+Копируем на сервер по SSH (~ означает сохраниь в домашнюю директорию)
+sudo scp image.tar root@46.29.163.150:~
+
+Заходим на наш сервер:
+ssh root@46.29.163.150
+
+Импортируем образ из файла на сервере:
+docker load < image.tar
+
+Запускаем контейнер на сервере:
+docker run -p 8000:8080 my-app
+
+Переходим по 46.29.163.150:8000/users
