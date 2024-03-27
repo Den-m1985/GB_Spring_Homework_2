@@ -8,6 +8,11 @@
 # Используем образ с Java Development Kit (JDK)
 FROM maven:3.8.5-openjdk-17-slim AS build
 
+# Устанавливаем JDK 17 и необходимые пакеты
+#RUN apt-get update && \
+#	  apt-get clean && \
+#	  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Копируем файлы с исходным кодом приложения в контейнер
 COPY ./ /app
 
